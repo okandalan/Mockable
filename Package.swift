@@ -36,7 +36,7 @@ let devTargets: [Target] = when(test, [
         name: "MockableMacroTests",
         dependencies: [
             "MockableMacro",
-            .product(name: "SwiftSyntaxMacrosTestSupport", package: "swift-syntax"),
+            .product(name: "SwiftSyntaxMacrosTestSupport", package: "swift-syntax-xcframeworks"),
             .product(name: "MacroTesting", package: "swift-macro-testing"),
         ],
         swiftSettings: [.define("MOCKING")]
@@ -53,7 +53,7 @@ let package = Package(
         )
     ],
     dependencies: devDependencies + [
-        .package(url: "https://github.com/swiftlang/swift-syntax.git", "509.0.0"..<"601.0.0"),
+        .package(url: "https://git.codevo.dev/seal/swift-syntax-xcframeworks", from: "509.0.0"),
         .package(url: "https://github.com/pointfreeco/xctest-dynamic-overlay", .upToNextMajor(from: "1.4.1"))
     ],
     targets: devTargets + [
@@ -72,8 +72,7 @@ let package = Package(
         .macro(
             name: "MockableMacro",
             dependencies: [
-                .product(name: "SwiftSyntaxMacros", package: "swift-syntax"),
-                .product(name: "SwiftCompilerPlugin", package: "swift-syntax")
+                .product(name: "SwiftSyntaxWrapper", package: "swift-syntax-xcframeworks")
             ],
             swiftSettings: [
                 .enableExperimentalFeature("StrictConcurrency"),
